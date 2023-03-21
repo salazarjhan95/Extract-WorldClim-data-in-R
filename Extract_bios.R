@@ -1,4 +1,5 @@
-setwd("C:/Users/jhanc/Box/Investigacion/Investigaciones/Side projects/Anolis/CT/For_WorldClim")
+# Set our directory
+setwd("")
 
 require(raster)
 require(sp)
