@@ -1,7 +1,6 @@
 # Set our directory
 setwd("")
 
-require(raster)
 require(sp)
 require(geodata)
 
