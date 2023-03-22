@@ -1,8 +1,10 @@
 # Set our directory
 setwd("")
 
+library(raster)
 require(sp)
 require(geodata)
+library(maps) # To add political divisions
 
 ## Extracting the WorldClim data
 clim <- getData('worldclim', var = 'bio', res = 5)
@@ -41,7 +43,8 @@ tempcol <- colorRampPalette(c("purple", "blue", "skyblue", "green", "lightgreen"
 
 # xlim = Longitude and ylim = Latitude
 plot(clim[[1]], xlim = c(-85, -66), ylim = c(0, 8),
-     col = tempcol(100), main="Bio 1", cex.main = 2, cex.axis = 1.2, cex.lab = 1.5,
+     col = tempcol(100), main = "Bio 1", cex.main = 2, cex.axis = 1.2, cex.lab = 1.5,
      xlab = "Longitude", ylab = "Latitude")
+map("world", add = TRUE, lwd = 1.5) # Use this function if you want to add the political divisions
 plot(points, add = T)
 
