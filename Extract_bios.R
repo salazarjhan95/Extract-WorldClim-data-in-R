@@ -34,7 +34,7 @@ tempcol <- colorRampPalette(c("purple", "blue", "skyblue", "green", "lightgreen"
                               "yellow", "orange", "red", "darkred"))
 
 
-## Ploting the maps
+## Plotting the maps
 
 #pdf("bio1_5_6.pdf", height = 10, width = 6)
   #par(mfrow = c(3, 1), mar = c(4.5, 4.5, 4.5, 4.5))
