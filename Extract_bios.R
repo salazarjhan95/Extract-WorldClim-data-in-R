@@ -5,28 +5,41 @@ library(raster)
 require(sp)
 require(geodata)
 library(maps) # To add political divisions
+library(terra)
 
-## Extracting the WorldClim data
-clim <- getData('worldclim', var = 'bio', res = 5)
+
+clim <- worldclim_global(var = "bio", res = 5, path = "")
 clim
 
+# Convert SpatRaster to RasterStack (RasterLayer for each variable)
+clim_raster <- stack(clim)
 
-## CT data
-ct_data <- read.csv("Data_Coordinate_Oct_04_2021.csv", header = 1)
+# Read coordinates data
+data <- read.csv(file="DataWithDecimalCoordinates.csv", header=TRUE)
+attach(data)
 
-## Extracting the latitude and longitude of each of the data points
-lats <- ct_data$LAT
-lons <- ct_data$LONG
+# Extracting the latitude and longitude of each of the data points
+lats <- data$Latitude
+lons <- data$Longitude
 
-## Creating a data frame with the latitude and longitude data
+# Creating a data frame with the latitude and longitude data
 coords <- data.frame(x = lons, y = lats)
-coords
 
-## This creates a object of class SpatialPoints from the coordinates data frame
-points <- SpatialPoints(coords, proj4string = clim@crs)
+# This creates a object of class SpatialPoints from the coordinates data frame
+points <- SpatialPoints(coords, proj4string = clim_raster@crs)
 
 # Here we extract the data from WorldClim for the coordinates
-values <- extract(clim, points)
+values <- extract(clim_raster, points)
+
+# Merge the extracted bio data with the coordinates
+df <- cbind.data.frame(coordinates(points), values)
+
+# Save the WoeldClim data in a new file
+write.csv(df, "bio_data.csv")
+
+# Shee some lines of the data file to check if everything is fine
+head(df)
+
 
 ## here we merge together the bio data and the coordinates
     # df <- cbind.data.frame(coordinates(points), values)
