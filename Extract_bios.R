@@ -37,7 +37,7 @@ df <- cbind.data.frame(coordinates(points), values)
 # Save the WoeldClim data in a new file
 write.csv(df, "bio_data.csv")
 
-# Shee some lines of the data file to check if everything is fine
+# Show some lines of the data file to check if everything is fine
 head(df)
 
 
